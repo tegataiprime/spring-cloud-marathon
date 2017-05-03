@@ -13,7 +13,7 @@ dependencies {
     provided "org.springframework.cloud:spring-cloud-starter-ribbon", optional
     provided "org.springframework.cloud:spring-cloud-starter-feign", optional
 
-    provided "com.mesosphere:marathon-client", optional
+    provided "us.deloitteinnovation.marathon:marathon-client", optional
     provided "com.netflix.feign:feign-ribbon", optional
 }
 
