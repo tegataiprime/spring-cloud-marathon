@@ -22,11 +22,10 @@ allprojects {
 
     repositories {
         jcenter()
-        mavenLocal()
         mavenCentral()
-        maven {
-            url "https://downloads.mesosphere.com/maven/"
-        }
+        maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-release" }
+        maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-snapshot" }
+        maven { url "https://downloads.mesosphere.com/maven/" }
     }
 
     apply plugin: 'idea'
