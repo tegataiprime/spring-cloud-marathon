@@ -17,8 +17,8 @@ buildscript {
 
 
 allprojects {
-    group = 'info.developerblog.spring.cloud'
-    version = '0.0.1'
+    group = 'us.deloitteinnovation.spring.cloud'
+    version = '1.0.0-SNAPSHOT'
 
     repositories {
         jcenter()
@@ -42,7 +42,7 @@ allprojects {
 
         dependencies {
             dependency 'org.projectlombok:lombok:1.16.8'
-            dependency 'com.mesosphere:marathon-client:0.3.1-SNAPSHOT'
+            dependency 'us.deloitteinnovation.marathon:marathon-client:0.3.1'
             dependency 'com.netflix.feign:feign-ribbon:8.14.1'
             dependency 'org.mockito:mockito-all:1.10.19'
             dependency 'org.unitils:unitils-core:3.4.2'
