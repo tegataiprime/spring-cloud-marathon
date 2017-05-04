@@ -1,5 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'nebula.integtest-standalone'
@@ -35,7 +36,9 @@ task sourceJar(type: Jar) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            group = 'us.deloitteinnovation.spring.cloud'
             artifactId 'spring-cloud-marathon-autoconfigure'
+            version '0.5.0-SNAPSHOT'
 
             from components.java
 
@@ -44,6 +47,10 @@ publishing {
             }
         }
     }
+}
+
+artifactoryPublish {
+    publications('mavenJava')
 }
 
 bintray {

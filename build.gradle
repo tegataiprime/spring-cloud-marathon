@@ -7,6 +7,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.+'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
         classpath 'com.netflix.nebula:nebula-project-plugin:3.2.1'
         classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:2.2.+'
