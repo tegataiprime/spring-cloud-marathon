@@ -21,10 +21,9 @@ allprojects {
     version = '0.5.0-SNAPSHOT'
 
     repositories {
+        maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-release-local" }
+        maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-snapshot-local" }
         jcenter()
-        mavenCentral()
-        maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-release" }
-        maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-snapshot" }
         maven { url "https://downloads.mesosphere.com/maven/" }
     }
 
