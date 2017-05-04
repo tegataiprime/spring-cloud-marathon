@@ -1,5 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.jfrog.artifactory'
 
 dependencies {
     compile project(':autoconfigure')
@@ -12,7 +13,7 @@ dependencies {
     compile "org.springframework.cloud:spring-cloud-starter-ribbon"
     compile "org.springframework.cloud:spring-cloud-starter-feign"
 
-    compile "com.mesosphere:marathon-client"
+    compile "us.deloitteinnovation.marathon:marathon-client"
     compile "com.netflix.feign:feign-ribbon"
 }
 
@@ -23,7 +24,9 @@ task sourceJar(type: Jar) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            group = 'us.deloitteinnovation.spring.cloud'
             artifactId 'spring-cloud-marathon-starter'
+            version '0.5.0'
 
             from components.java
 
@@ -32,6 +35,10 @@ publishing {
             }
         }
     }
+}
+
+artifactoryPublish {
+    publications('mavenJava')
 }
 
 bintray {

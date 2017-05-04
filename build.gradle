@@ -7,6 +7,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.+'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
         classpath 'com.netflix.nebula:nebula-project-plugin:3.2.1'
         classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:2.2.+'
@@ -17,16 +18,14 @@ buildscript {
 
 
 allprojects {
-    group = 'info.developerblog.spring.cloud'
-    version = '0.0.1'
+    group = 'us.deloitteinnovation.spring.cloud'
+    version = '0.5.0'
 
     repositories {
+        maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-release-local" }
+        maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-snapshot-local" }
         jcenter()
-        mavenLocal()
-        mavenCentral()
-        maven {
-            url "https://downloads.mesosphere.com/maven/"
-        }
+        maven { url "https://downloads.mesosphere.com/maven/" }
     }
 
     apply plugin: 'idea'
@@ -42,7 +41,7 @@ allprojects {
 
         dependencies {
             dependency 'org.projectlombok:lombok:1.16.8'
-            dependency 'com.mesosphere:marathon-client:0.3.1-SNAPSHOT'
+            dependency 'us.deloitteinnovation.marathon:marathon-client:0.3.1'
             dependency 'com.netflix.feign:feign-ribbon:8.14.1'
             dependency 'org.mockito:mockito-all:1.10.19'
             dependency 'org.unitils:unitils-core:3.4.2'
