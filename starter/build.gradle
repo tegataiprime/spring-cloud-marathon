@@ -26,7 +26,7 @@ publishing {
         mavenJava(MavenPublication) {
             group = 'us.deloitteinnovation.spring.cloud'
             artifactId 'spring-cloud-marathon-starter'
-            version '0.5.0-SNAPSHOT'
+            version '0.5.0'
 
             from components.java
 
