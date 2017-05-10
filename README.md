@@ -329,8 +329,8 @@ customer:
     ribbon:
     <your settings here>
     MetaDataFilter:
-      API_VERSION: !=V3    # not equal to V3
-      ENVIRONMENT: ==DEV   # equal to DEV
+      API_VERSION: '!=V3'  # not equal to V3; note: must be quoted to keep yaml happy
+      ENVIRONMENT: '==DEV' # equal to DEV; note: must be quoted to keep yaml happy
       CUSTOMER_ENTITY: V1  # equal to V1; default is equals
 ```
 
