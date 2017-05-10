@@ -31,19 +31,4 @@ public class MarathonServer extends Server {
                 .allMatch(HealthCheckResults::getAlive);
     }
 
-
-    /**
-     * returns true if all metaDataFilters are found to be present
-     * returns true if no metaDataFilters are provided
-     *
-     * @param metaDataFilters
-     * @return
-     */
-    public boolean hasMetaData(Map<String,String> metaDataFilters) {
-
-        if (metaDataFilters.size()==0) return true;
-
-        final Set<Map.Entry<String, String>> attributes = Collections.unmodifiableSet(metaDataFilters.entrySet());
-        return metaData.entrySet().containsAll(attributes);
-    }
 }

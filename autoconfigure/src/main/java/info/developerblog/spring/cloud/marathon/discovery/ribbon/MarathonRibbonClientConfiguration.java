@@ -38,8 +38,7 @@ public class MarathonRibbonClientConfiguration {
 
     @Bean
     public ServerListFilter<Server> ribbonServerListFilter(IClientConfig config) {
-        MarathonServiceHealthCheckLabelFilter filter = new MarathonServiceHealthCheckLabelFilter();
-        filter.initWithNiwsConfig(config);
+        MarathonServiceHealthCheckFilter filter = new MarathonServiceHealthCheckFilter();
         return filter;
     }
 

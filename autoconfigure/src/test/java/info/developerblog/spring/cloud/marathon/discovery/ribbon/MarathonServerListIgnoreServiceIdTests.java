@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by aleksandr on 08.07.16.
  */
-public class MarathonServerListTestsIgnoreServiceId {
+public class MarathonServerListIgnoreServiceIdTests {
     private MarathonServerList serverList;
     private Marathon marathonClient = mock(Marathon.class);
 
@@ -51,7 +51,8 @@ public class MarathonServerListTestsIgnoreServiceId {
 
         GetAppsResponse appsResponse = new GetAppsResponse();
 
-        when(marathonClient.getApps())
+        Map<String,String> queryMap = new HashMap<>();
+        when(marathonClient.getApps(queryMap))
                 .thenReturn(appsResponse);
 
         App app = new App();
