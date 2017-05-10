@@ -38,7 +38,7 @@ publishing {
         mavenJava(MavenPublication) {
             group = 'us.deloitteinnovation.spring.cloud'
             artifactId 'spring-cloud-marathon-autoconfigure'
-            version '0.5.2-SNAPSHOT'
+            version '0.5.2'
 
             from components.java
 
