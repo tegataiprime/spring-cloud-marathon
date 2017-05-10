@@ -22,6 +22,18 @@ public class MarathonServerList extends AbstractServerList<MarathonServer> {
 
     private static final String IGNORESERVICEID_PROPERTY = "IgnoreServiceId";
 
+    private static final String METADATAFILTER_PROPERTY = "MetaDataFilter";
+
+    private static final String METADATAFILTER_KEY = METADATAFILTER_PROPERTY + ".";
+
+    private static final String NOT_EQUAL = "!=";
+    private static final String EQUAL = "==";
+    private static final String SET_IN = "in";
+    private static final String SET_NOTIN = "notin";
+    private static final String LABEL_SEPARATOR = ",";
+
+    private Map<String,String> metaDataFilter;
+
     private Marathon client;
     private MarathonDiscoveryProperties properties;
 
@@ -34,16 +46,63 @@ public class MarathonServerList extends AbstractServerList<MarathonServer> {
         this.properties = properties;
         this.queryMap = new HashMap<>();
         this.ignoreServiceId = false;
+        metaDataFilter = new HashMap<>();
     }
 
     @Override
     public void initWithNiwsConfig(IClientConfig clientConfig) {
         serviceId = ServiceIdConverter.convertToMarathonId(clientConfig.getClientName());
-        queryMap.put("id",serviceId);
 
         if (clientConfig.getProperties().containsKey(IGNORESERVICEID_PROPERTY)) {
             ignoreServiceId = "true".equalsIgnoreCase(clientConfig.getProperties().get(IGNORESERVICEID_PROPERTY).toString());
         }
+
+        clientConfig.getProperties().entrySet().stream()
+                .filter(entry -> entry.getKey().startsWith(METADATAFILTER_KEY))
+                .forEach(entry -> metaDataFilter.put(entry.getKey().replace(METADATAFILTER_KEY, ""), entry.getValue().toString()));
+
+
+        // Filter list of services by service id
+        if (!ignoreServiceId){
+            queryMap.put("id",serviceId);
+        }
+
+        // Filter list of services by service labels
+        if (metaDataFilter.size()>0){
+
+            String labelSelectorQuery = "";
+
+            int count = 0;
+            for (Map.Entry<String,String> entry : metaDataFilter.entrySet()){
+
+                if (count>0)
+                    labelSelectorQuery += LABEL_SEPARATOR;
+
+                labelSelectorQuery += entry.getKey() + getEquality(entry.getValue()) + entry.getValue();
+                count++;
+            }
+
+            queryMap.put("label",labelSelectorQuery);
+        }
+    }
+
+    /**
+     * If the value is already prefixed with an equality operator then return an empty string
+     * else return EQUALS by default
+     *
+     * @param value
+     * @return
+     */
+    private String getEquality(String value){
+
+        if (value.startsWith(EQUAL) || value.startsWith(NOT_EQUAL)) {
+            return "";
+        } else if  (value.startsWith(SET_IN) || value.startsWith(SET_NOTIN)){
+            return " ";
+        } else {
+            return EQUAL;
+        }
+
     }
 
     @Override
@@ -86,7 +145,7 @@ public class MarathonServerList extends AbstractServerList<MarathonServer> {
                 Step 2 - Search for all applications whose marathon id contains the service id (e.g. "*.{serviceId}*.")
                 This is supported by the marathon api by passing a partial id as a query parameter
                  */
-                GetAppsResponse appsResponse = (ignoreServiceId)?client.getApps():client.getApps(queryMap);
+                GetAppsResponse appsResponse = client.getApps(queryMap);
 
                 if (appsResponse!=null && appsResponse.getApps()!=null) {
 

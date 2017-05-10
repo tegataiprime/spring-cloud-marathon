@@ -19,7 +19,7 @@ buildscript {
 
 allprojects {
     group = 'us.deloitteinnovation.spring.cloud'
-    version = '0.5.1'
+    version = '0.5.2'
 
     repositories {
         maven { url "https://artifactory.tools.deloitteinnovation.us/artifactory/libs-release-local" }
